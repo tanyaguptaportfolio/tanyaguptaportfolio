@@ -111,7 +111,7 @@ def test_organizations_learning_and_certification(client):
 
 def test_public_contact_details(client):
     contact = client[0].get("/api/portfolio").json()["contact"]
-    assert contact["email"] == "tanayaguptanorway@gmail.com"
+    assert contact["email"] == "tanyaguptanorway@gmail.com"
     assert contact["linkedin_url"] == "https://www.linkedin.com/in/tanyaguptanorway/"
     assert contact["phone"] == "+4740152755"
     assert contact["phone_display"].replace(" ", "") == contact["phone"]

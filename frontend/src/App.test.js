@@ -219,7 +219,7 @@ it('shows the organizations, verified certifications, and Trailhead achievements
 
 it('provides the exact email, phone, and a safe external LinkedIn link', async () => {
   await render()
-  expect(wrapper.find('a[href="mailto:tanayaguptanorway@gmail.com"]').text()).toContain(
+  expect(wrapper.find(`a[href="mailto:${content.contact.email}"]`).text()).toContain(
     content.contact.email,
   )
   expect(wrapper.find('a[href="tel:+4740152755"]').text()).toContain('+47 401 52 755')
