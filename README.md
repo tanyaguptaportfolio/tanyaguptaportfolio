@@ -164,6 +164,39 @@ https://USERNAME.github.io/REPOSITORY/
 Publish the generated build through the workflow, not the source HTML. A public
 repository can use GitHub Pages on GitHub Free, subject to GitHub's service limits.
 
+### Pages Shows the README Instead of the Portfolio
+
+This happens when Pages uses **Deploy from a branch** with `main` and `/` as its
+publishing source. GitHub publishes the repository root instead of running Vite,
+and may render the README through its default Jekyll build. This Vue application
+does not need a Jekyll theme.
+
+1. Open [this repository's Pages settings](https://github.com/tanyaguptaportfolio/tanyaguptaportfolio/settings/pages).
+2. Under **Build and deployment > Source**, select **GitHub Actions**.
+3. Do not select `main`, `/`, or `/docs` as a branch publishing source. The Actions
+	workflow uploads `frontend/dist` automatically; there is no folder to choose
+	in the Pages settings when using GitHub Actions.
+4. Open **Actions > Deploy portfolio to GitHub Pages** and inspect the latest run.
+5. If its build succeeded but deployment failed, choose **Re-run jobs > Re-run
+	failed jobs** after correcting the Pages setting.
+6. If tests or the build failed, fix the reported error, commit, and push to `main`.
+	Rerunning an old run uses its original commit and will not include local fixes.
+7. Wait for the deployment job to succeed, then refresh the public site. If the
+	old README is still visible, hard-refresh or open a private browsing window.
+
+The portfolio URL for this repository is:
+
+https://tanyaguptaportfolio.github.io/tanyaguptaportfolio/
+
+A successful **pages-build-deployment** run alone can indicate that the old
+branch/Jekyll publisher succeeded. Check **Deploy portfolio to GitHub Pages** to
+confirm that the compiled Vue artifact was deployed.
+
+If `actions/deploy-pages` reports **404 / Not Found** or asks you to enable Pages,
+check the publishing source above, repository Pages availability, and the
+workflow's Pages permissions. If a CLI attempt to update the setting also returns
+404, use the repository Settings page; do not assume the setting changed.
+
 ## Optional Python Backend
 
 For local API exploration, install uv and use Python 3.12+:
