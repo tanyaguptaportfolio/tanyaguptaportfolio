@@ -115,3 +115,4 @@ def test_public_contact_details(client):
     assert contact["linkedin_url"] == "https://www.linkedin.com/in/tanyaguptanorway/"
     assert contact["phone"] == "+4740152755"
     assert contact["phone_display"].replace(" ", "") == contact["phone"]
+    assert contact["github_url"] == "https://github.com/tanyaguptaportfolio"

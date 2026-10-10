@@ -21,6 +21,12 @@ defineProps({ contact: { type: Object, required: true } })
         ><span class="sr-only">(opens in a new tab)</span></span
       ><ArrowUpRight :size="17"
     /></a>
+    <a class="contact-link" :href="contact.github_url" target="_blank" rel="noopener noreferrer"
+      ><ExternalLink :size="19" /><span
+        ><small>GitHub</small><strong>View GitHub repository</strong
+        ><span class="sr-only">(opens in a new tab)</span></span
+      ><ArrowUpRight :size="17"
+    /></a>
   </nav>
 </template>
 

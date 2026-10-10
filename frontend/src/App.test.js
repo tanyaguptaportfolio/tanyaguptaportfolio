@@ -194,7 +194,7 @@ it('shows the organizations, verified certifications, and Trailhead achievements
   ]) {
     expect(journey.text()).toContain(organization)
   }
-  const credentials = journey.findAll('.certification-entry')
+  const credentials = journey.findAll('.certification-entry:not(.is-clone)')
   expect(credentials).toHaveLength(6)
   for (const [index, credential] of credentials.entries()) {
     expect(credential.text()).toContain(content.certifications[index].name)
@@ -210,7 +210,7 @@ it('shows the organizations, verified certifications, and Trailhead achievements
     }
   }
   expect(credentials[4].find('.credential-issuer').text()).toContain('Trailhead achievement')
-  expect(journey.findAll('.credential-link')).toHaveLength(4)
+  expect(journey.findAll('.certification-entry:not(.is-clone) .credential-link')).toHaveLength(4)
   expect(credentials[4].find('.credential-link').exists()).toBe(false)
   expect(credentials[5].text()).toContain('Triple Star Ranger')
   expect(journey.text()).not.toContain('Verification link not provided')
