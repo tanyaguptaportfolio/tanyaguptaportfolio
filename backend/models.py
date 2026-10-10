@@ -61,6 +61,7 @@ class Certification(ContentModel):
 class ContactDetails(ContentModel):
     email: EmailStr
     linkedin_url: HttpUrl
+    github_url: HttpUrl
     phone: Annotated[str, Field(pattern=r"^\+[1-9]\d{7,14}$")]
     phone_display: str
 
