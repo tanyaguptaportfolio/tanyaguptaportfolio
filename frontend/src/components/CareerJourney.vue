@@ -52,52 +52,103 @@ defineProps({
           </p>
         </article>
       </section>
+    </div>
+  </div>
+  <div>
+          <!--start: Newly added section for certifications and achievements-->
       <section
         v-if="certifications.length"
         class="career-group"
         aria-labelledby="certification-heading"
       >
-        <h3 id="certification-heading" class="career-group-title">
+      <h3 id="certification-heading" class="career-group-title">
           Certifications &amp; achievements
         </h3>
-        <article
-          v-for="certification in certifications"
-          :key="`${certification.issuer}-${certification.name}`"
-          class="certification-entry"
-        >
-          <Award :size="30" class="credential-icon" />
-          <div>
-            <span class="credential-issuer"
-              >{{ certification.issuer }} · {{ certification.category || 'Certification' }}</span
+      <div class="carousel">
+        <div class="group" :style="{ '--duration': `${certifications.length * 6}s`}">
+          <template v-for="copy in 2" :key="copy">
+            <article 
+              v-for="certification in certifications"
+              :key="`${copy}-${certification.issuer}-${certification.name}`"
+              class="card certification-entry"
+              :class="{ 'is-clone': copy === 2 }"
+              :aria-hidden="copy === 2 ? 'true' : undefined"
+              :inert="copy === 2"
             >
-            <h4 class="career-name">{{ certification.name }}</h4>
-            <span
-              v-if="certification.verified && certification.category !== 'Trailhead achievement'"
-              class="credential-status"
-              :class="{ verified: certification.verified }"
-              >Verified credential</span
-            >
-            <p class="credential-details">{{ certification.details }}</p>
-            <a
-              v-if="
-                certification.credential_url && certification.category !== 'Trailhead achievement'
-              "
-              class="text-link credential-link"
-              :href="certification.credential_url"
-              target="_blank"
-              rel="noopener noreferrer"
-              >View credential <ArrowUpRight :size="16" /><span class="sr-only"
-                >(opens in a new tab)</span
-              ></a
-            >
-          </div>
-        </article>
+              <Award :size="30" class="credential-icon" aria-hidden="true" />
+              <div>
+                <span class="credential-issuer"
+                  >{{ certification.issuer }} · {{ certification.category || 'Certification' }}</span
+                >
+                <h4 class="career-name">{{ certification.name }}</h4>
+                <span
+                  v-if="certification.verified && certification.category !== 'Trailhead achievement'"
+                  class="credential-status"
+                  :class="{ verified: certification.verified }"
+                  >Verified credential</span
+                >
+                <p class="credential-details">{{ certification.details }}</p>
+                <a
+                  v-if="
+                    certification.credential_url && certification.category !== 'Trailhead achievement'
+                  "
+                  class="text-link credential-link"
+                  :href="certification.credential_url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >View credential <ArrowUpRight :size="16" aria-hidden="true"/><span class="sr-only"
+                    >(opens in a new tab)</span
+                  ></a
+                >
+              </div>
+            </article>
+          </template>  
+        </div>
+      </div>
       </section>
-    </div>
+      <!--end: Newly added section for certifications and achievements-->
   </div>
 </template>
 
 <style scoped>
+/*start: Newly added styles for certifications and achievements*/ 
+.carousel {
+  display: flex;
+  justify-content: flex;
+  overflow: hidden;
+  gap: 1em;
+  width: 100%;
+}
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+.group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  animation: spin var(--duration, 10s) infinite linear;
+  padding-right:1em;
+  align-items: stretch;
+  flex-shrink: 0;
+  width: max-content;
+}
+.card {
+  flex: 0 0 5em;
+  padding: 1em;
+  background-color: var(--line);
+  border-radius: 8px;
+  flex: 0 0 min(420px, 85vw);
+}
+@keyframes spin {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+/*end: Newly added styles for certifications and achievements*/
 .journey-note {
   margin-top: 24px;
   max-width: 380px;
@@ -192,4 +243,6 @@ defineProps({
     gap: 12px;
   }
 }
+
+
 </style>
